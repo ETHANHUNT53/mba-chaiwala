@@ -4,6 +4,7 @@ import "./Styles/footer.scss"
 import IntroVideo from "./Components/IntroVideo";
 import Section from "./Components/Section";
 import freshTopicImg from "./Assets/academy.png"
+import Loader from "./Components/Loader";
 import data from "./Data/data.json"
 import freshTopic2Img from "./Assets/story.png"
 import tedTalksImg from "./Assets/in-the-news.gif"
@@ -38,6 +39,8 @@ function App() {
     chaiwala,
   } = data;
 
+  const [loading,setLoading]=useState(true);
+
   const dotCursor = (e)=>{
     const cursor=document.querySelector(".cursor")
     cursor.style.top=`${e.pageY - 14}px`
@@ -59,7 +62,10 @@ function App() {
   }
   
   useEffect(() => {
-    window.addEventListener("mousemove",dotCursor)
+    window.addEventListener("mousemove",dotCursor);
+    setTimeout(()=>{
+      setLoading(false);
+    },3000)
   
     return () => {
       window.removeEventListener("mousemove",dotCursor)
@@ -69,6 +75,7 @@ function App() {
 
   return (
     <>
+      {loading && <Loader/>}
       <IntroVideo />
       {/* FreshTopic */}
       <Section
